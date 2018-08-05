@@ -45,6 +45,10 @@ This started out as fork of Checkman's [concourse.check](https://github.com/cppf
 
 * Since the bitbar protocol is text-based, the bitbar-concourse gem can be tested in the terminal. Just execute the script in `~/.bitbar/` in a terminal window.
 
+# Tests
+
+Running the integration tests requires a real Concourse server. By default, ci.concourse-ci.org is used. If you want to test your own, supply the environment variables listed in `.envrc.sample`.
+
 # Misc
 
 The propeller logo is in the [public domain](https://thenounproject.com/search/?q=propeller&i=13111).

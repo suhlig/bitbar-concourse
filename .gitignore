@@ -1,2 +1,3 @@
 .cache_rake_t
 pkg
+.envrc

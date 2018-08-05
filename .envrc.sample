@@ -1,0 +1,4 @@
+export CONCOURSE_URI=https://ci.example.com/
+export CONCOURSE_USER=pipeline
+export CONCOURSE_PASSWORD=REDACTED
+export CONCOURSE_PIPELINE="Example Pipeline"

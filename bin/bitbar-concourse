@@ -6,8 +6,8 @@ require 'bitbar'
 
 client = Concourse::Client.new(
   ENV.fetch('CONCOURSE_URI'),
-  ENV['CONCOURSE_USER'],
-  ENV['CONCOURSE_PASSWORD']
+  username: ENV['CONCOURSE_USER'],
+  password: ENV['CONCOURSE_PASSWORD']
 )
 
 target_name = ENV.fetch('CONCOURSE_TARGET', 'Concourse')

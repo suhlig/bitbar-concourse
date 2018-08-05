@@ -1,4 +1,2 @@
-* Pipelines belong to [teams]( https://flintstone.ci.cf-app.com/api/v1/teams/main/pipelines/bits-service)
-  => We probably want to start with [teams]( https://flintstone.ci.cf-app.com/api/v1/teams)   
-
+* Use Excon in order to get easy tracing
 * Ignore certain tasks, e.g. release lock

@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'webmock'
 
 module Concourse
   describe Client do
@@ -23,10 +22,7 @@ module Concourse
       }
     JSON
 
-    before(:all) { WebMock.disable_net_connect! }
-    after(:all) { WebMock.allow_net_connect! }
-
-    before(:all) do
+    before do
       [
         %w(succeeded pending),
         %w(succeeded started),
@@ -37,13 +33,16 @@ module Concourse
         %w(aborted pending),
         %w(aborted started)
       ].each do |finished_status, next_status|
-        WebMock.stub_request(:get, "http://username77:passw0rd@server.example.com/api/v1/pipelines/some-pipeline/jobs/#{finished_status}-#{next_status}")
+        WebMock.stub_request(:get, "http://server.example.com/api/v1/teams/main/pipelines/some-pipeline/jobs/#{finished_status}-#{next_status}")
                .to_return(status: 200, body: job_json % [finished_status, next_status], headers: {})
       end
+
+      WebMock.stub_request(:get, "http://server.example.com/auth/basic/token?team_name=main")
+             .to_return(status: 200, body: '{}')
     end
 
     subject do
-      Client.new('http://server.example.com/', 'username77', 'passw0rd')
+      Client.new('http://server.example.com/', username: 'username77', password: 'passw0rd')
     end
 
     context 'when the pipeline and job exist' do
