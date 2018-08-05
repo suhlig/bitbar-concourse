@@ -10,7 +10,7 @@
 # Configuration parameters: AllowSafeAssignment.
 Lint/AssignmentInCondition:
   Exclude:
-    - 'bin/bitbar-concourse'
+    - 'exe/bitbar-concourse'
     - 'lib/bitbar/concourse/build_presenter.rb'
 
 # Offense count: 1

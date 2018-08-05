@@ -25,7 +25,7 @@ module Concourse
     end
 
     def url
-      @job.url + @info['url']
+      @info['api_url']
     end
 
     def status

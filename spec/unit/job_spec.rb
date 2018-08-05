@@ -33,7 +33,7 @@ module Concourse
         expect(job).to_not be_nil
         expect(job.name).to eq('CATs-with-bits')
 
-        # TBD
+        # TODO
         # expect(job.group).to eq('bits-service')
 
         builds = job.builds

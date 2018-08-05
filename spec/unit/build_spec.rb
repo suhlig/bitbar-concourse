@@ -27,7 +27,7 @@ module Concourse
         expect(subject.name).to eq('12')
 
         expect(subject.status).to eq('succeeded')
-        expect(subject.url).to eq('/pipelines/bits-service/jobs/CATs-with-bits/builds/12')
+        expect(subject.url).to eq('/api/v1/builds/480')
         expect(subject.start_time.to_s).to eq('2016-02-12 17:36:55 +0100')
         expect(subject.end_time.to_s).to eq('2016-02-12 17:54:49 +0100')
       end

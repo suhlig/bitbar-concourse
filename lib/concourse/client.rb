@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'uri'
-require 'cgi'
 require 'open-uri'
 require 'net/https'
 

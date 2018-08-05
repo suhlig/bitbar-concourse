@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'cgi'
+
 module Concourse
   #
   # A job belongs to a pipeline
@@ -24,7 +26,7 @@ module Concourse
     end
 
     def builds
-      JSON.parse(@pipeline.get("/#{name}/builds")).map do |build|
+      JSON.parse(@pipeline.get("/#{CGI.escape(name)}/builds")).map do |build|
         Build.new(self, build)
       end
     end
@@ -36,10 +38,6 @@ module Concourse
     def next_build
       next_build = @info['next_build']
       Build.new(self, next_build) if next_build
-    end
-
-    def url
-      @pipeline.url + @info['url']
     end
   end
 end

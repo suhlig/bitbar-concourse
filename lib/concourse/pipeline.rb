@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'cgi'
+
 module Concourse
   #
   # A pipeline belongs to a target
@@ -17,14 +19,6 @@ module Concourse
       @info['name']
     end
 
-    def to_s
-      "#{self.class.name.split('::').last.downcase} #{name} of #{@target}"
-    end
-
-    def url
-      @target.url + @info['url']
-    end
-
     def jobs
       JSON.parse(get).map do |job|
         Job.new(self, job)
@@ -32,7 +26,11 @@ module Concourse
     end
 
     def get(path = '')
-      @target.get("/#{name}/jobs#{path}")
+      @target.get("/#{CGI.escape(name)}/jobs#{path}")
+    end
+
+    def to_s
+      "#{self.class.name.split('::').last.downcase} #{name} of #{@target}"
     end
   end
 end

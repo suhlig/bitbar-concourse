@@ -5,6 +5,8 @@ require 'json'
 
 module Concourse
   describe Pipeline do
+    subject(:pipeline) { Pipeline.new(client, bits_service_json) }
+
     let(:client) do
       double(Client)
     end
@@ -27,38 +29,77 @@ module Concourse
       )
     end
 
-    describe '#new' do
-      it 'returns a valid pipeline' do
-        pipeline = Pipeline.new(client, bits_service_json)
-        expect(pipeline).to_not be_nil
+    it 'returns a valid pipeline' do
+      expect(pipeline).to be
+    end
 
-        expect(pipeline.name).to eq('bits-service')
-        expect(pipeline.url.to_s).to eq('http://example.com/pipelines/bits-service')
+    it 'has a name' do
+      expect(pipeline.name).to eq('bits-service')
+    end
 
-        jobs = pipeline.jobs
-        expect(jobs).to_not be_empty
-        expect(jobs.size).to eq(9)
+    xit 'has a URL' do
+      expect(pipeline.url.to_s).to eq('http://example.com/pipelines/bits-service')
+    end
 
-        job_0 = jobs.first
-        expect(job_0).to_not be_nil
-        expect(job_0.name).to eq('run-tests')
+    it 'has jobs' do
+      jobs = pipeline.jobs
+      expect(jobs).to_not be_empty
+      expect(jobs.size).to eq(9)
+    end
 
-        # TBD
-        # expect(job_0.group).to eq('bits-service')
+    context 'the first job' do
+      let(:job) { pipeline.jobs.first }
 
-        job_7 = jobs[7]
-        expect(job_7).to_not be_nil
-        expect(job_7.name).to eq('CATs-with-bits')
-        # TBD
-        # expect(job_7.group).to eq('cf-release')
+      it 'exists' do
+        expect(job).to be
+      end
 
-        builds = job_7.builds
-        expect(builds).to_not be_empty
-        expect(builds.size).to eq(12)
+      it 'has a name' do
+        expect(job.name).to eq('run-tests')
+      end
 
-        build_9 = builds[9]
-        expect(build_9).to_not be_nil
-        expect(build_9.name).to eq('3')
+      xit 'belongs to a group' do
+        expect(job.group).to eq('bits-service')
+      end
+    end
+
+    context 'job #7' do
+      let(:job) { pipeline.jobs[7] }
+
+      it 'exists' do
+        expect(job).to be
+      end
+
+      it 'has a name' do
+        expect(job.name).to eq('CATs-with-bits')
+      end
+
+      xit 'belongs to a group' do
+        expect(job.group).to eq('cf-release')
+      end
+
+      context 'builds' do
+        let(:builds) { job.builds }
+
+        it 'has some' do
+          expect(builds).to_not be_empty
+        end
+
+        it 'has the expected number of them' do
+          expect(builds.size).to eq(12)
+        end
+
+        context 'build #9' do
+          let(:build) { builds[9] }
+
+          it 'exists' do
+            expect(build).to be
+          end
+
+          it 'has a name' do
+            expect(build.name).to eq('3')
+          end
+        end
       end
     end
   end

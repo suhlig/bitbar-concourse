@@ -27,10 +27,6 @@ module Concourse
       @client.get('pipelines' + path)
     end
 
-    def url
-      @client.base_uri
-    end
-
     def to_s
       "#{self.class.name.split('::').last.downcase} #{name}"
     end
