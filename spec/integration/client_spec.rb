@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require 'rspec'
-$LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
+$LOAD_PATH.unshift File.expand_path('../lib', __dir__)
 require 'concourse'
 require 'cgi'
 
@@ -62,7 +64,7 @@ module Concourse
         let(:password) { 'some-password' }
 
         it 'fails to authenticate' do
-          expect{client.get("pipelines/#{pipeline}")}.to raise_error(OpenURI::HTTPError, '401 Unauthorized')
+          expect { client.get("pipelines/#{pipeline}") }.to raise_error(OpenURI::HTTPError, '401 Unauthorized')
         end
       end
     end

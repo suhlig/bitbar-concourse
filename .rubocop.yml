@@ -1,0 +1,18 @@
+inherit_from: .rubocop_todo.yml
+
+AllCops:
+  TargetRubyVersion: 2.5
+
+  DisplayCopNames: true
+
+  DisplayStyleGuide:
+    Enabled: true
+
+Documentation:
+  Enabled: false
+
+Style/Encoding:
+  Enabled: false
+
+Metrics/LineLength:
+  Max: 120

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'forwardable'
 require 'relative_time'
 
@@ -45,7 +47,7 @@ module Bitbar
       end
 
       def relative_end_time
-        @build.end_time.extend(RelativeTime).to_relative if @build.end_time
+        @build.end_time&.extend(RelativeTime)&.to_relative
       end
     end
   end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module RelativeTime
   # derived from http://stackoverflow.com/a/195894
   def to_relative

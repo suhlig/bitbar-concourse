@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Concourse
   #
   # A job belongs to a pipeline

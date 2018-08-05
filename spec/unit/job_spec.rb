@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 require 'json'
 
@@ -17,8 +19,12 @@ module Concourse
 
     before do
       allow(pipeline).to receive(:url).and_return('http://example.com')
-      allow(pipeline).to receive(:get).with('/CATs-with-bits').and_return(File.read(fixtures / 'pipelines/bits-service/jobs/CATs-with-bits.json'))
-      allow(pipeline).to receive(:get).with('/CATs-with-bits/builds').and_return(File.read(fixtures / 'pipelines/bits-service/jobs/CATs-with-bits/builds.json'))
+      allow(pipeline).to receive(:get).with('/CATs-with-bits').and_return(
+        File.read(fixtures / 'pipelines/bits-service/jobs/CATs-with-bits.json')
+      )
+      allow(pipeline).to receive(:get).with('/CATs-with-bits/builds').and_return(
+        File.read(fixtures / 'pipelines/bits-service/jobs/CATs-with-bits/builds.json')
+      )
     end
 
     describe '#new' do

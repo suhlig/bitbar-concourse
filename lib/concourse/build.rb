@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Concourse
   #
   # A build belongs to a job

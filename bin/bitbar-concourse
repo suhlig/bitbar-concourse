@@ -1,5 +1,7 @@
 #!/usr/bin/env ruby
-$LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
+# frozen_string_literal: true
+
+$LOAD_PATH.unshift File.expand_path('../lib', __dir__)
 
 require 'concourse'
 require 'bitbar'
@@ -15,14 +17,12 @@ ci = Concourse::Target.new(client)
 
 begin
   pipelines = ci.pipelines
-rescue => e
+rescue StandardError => e
   warn Bitbar::Concourse::ErrorPresenter.new(e, target_name)
   exit 1
 end
 
-if ARGV.any?
-  pipelines = pipelines.select { |pipeline| ARGV.include?(pipeline.name) }
-end
+pipelines = pipelines.select { |pipeline| ARGV.include?(pipeline.name) } if ARGV.any?
 
 latest_builds = pipelines.map do |pipeline|
   pipeline.jobs.map do |job|

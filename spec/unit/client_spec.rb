@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 module Concourse
@@ -24,20 +26,21 @@ module Concourse
 
     before do
       [
-        %w(succeeded pending),
-        %w(succeeded started),
-        %w(failed pending),
-        %w(failed started),
-        %w(errored pending),
-        %w(errored started),
-        %w(aborted pending),
-        %w(aborted started)
+        %w[succeeded pending], %w[succeeded started], %w[failed pending], %w[failed started],
+        %w[errored pending], %w[errored started], %w[aborted pending], %w[aborted started]
       ].each do |finished_status, next_status|
-        WebMock.stub_request(:get, "http://server.example.com/api/v1/teams/main/pipelines/some-pipeline/jobs/#{finished_status}-#{next_status}")
-               .to_return(status: 200, body: job_json % [finished_status, next_status], headers: {})
+        uri = 'http://server.example.com/api/v1/teams/main/pipelines/' \
+              "some-pipeline/jobs/#{finished_status}-#{next_status}"
+
+        WebMock.stub_request(:get, uri)
+               .to_return(
+                 status: 200,
+                 body: format(job_json, finished_status, next_status),
+                 headers: {}
+               )
       end
 
-      WebMock.stub_request(:get, "http://server.example.com/auth/basic/token?team_name=main")
+      WebMock.stub_request(:get, 'http://server.example.com/auth/basic/token?team_name=main')
              .to_return(status: 200, body: '{}')
     end
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'uri'
 require 'cgi'
 require 'open-uri'
@@ -5,7 +7,7 @@ require 'net/https'
 
 module Concourse
   class Client
-    API_BASE_PATH = '/api/v1/teams/main/'.freeze
+    API_BASE_PATH = '/api/v1/teams/main/'
 
     attr_reader :base_uri
 
