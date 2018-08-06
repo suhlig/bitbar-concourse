@@ -1,5 +1,7 @@
 # bitbar-concourse
 
+[![Build Status](https://travis-ci.org/suhlig/bitbar-concourse.svg?branch=master)](https://travis-ci.org/suhlig/bitbar-concourse)
+
 Presents the status of a [Concourse](https://concourse.ci/release-notes.html) pipeline in [bitbar](https://github.com/matryer/bitbar).
 
 This started out as fork of Checkman's [concourse.check](https://github.com/cppforlife/checkman/blob/master/scripts/concourse.check), but has evolved since.
