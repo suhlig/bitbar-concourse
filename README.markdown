@@ -55,16 +55,19 @@ This started out as fork of Checkman's [concourse.check](https://github.com/cppf
 
 # Tests
 
-Running the integration tests requires a real Concourse server. By default, ci.concourse-ci.org is used. If you want to test your own, supply the environment variables listed in `.envrc.sample`.
+Running the integration tests requires a real Concourse server. By default, [ci.concourse-ci.org](https://ci.concourse-ci.org) is used. If you want to test with your own, which is required for the authentication tests, supply the environment variables listed in `.envrc.sample`.
 
 # Misc
 
 The propeller logo is in the [public domain](https://thenounproject.com/search/?q=propeller&i=13111).
 
 # TODO
-* Order latest builds in presenter, by status and then by last-run date
+
+* Use Excon in order to get easy tracing
+* Order latest builds in presenter first by status and then by last-run date so that the broken ones appear at the top
 * Use TerminalNotifier when a build is failing:
 
         TerminalNotifier.notify('Hello World', :open => 'http://twitter.com/alloy')
 
-  We'd have to keep state and notify only on a change (red => green etc.).
+* Keep state about each job and notify only on a change (red => green etc.)
+* Ignore certain tasks, e.g. release lock
