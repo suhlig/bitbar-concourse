@@ -6,7 +6,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 Gem::Specification.new do |spec|
   spec.name          = 'bitbar-concourse'
-  spec.version       = '1.0'
+  spec.version       = '1.1'
   spec.authors       = ['Steffen Uhlig']
   spec.email         = ['Steffen.Uhlig@de.ibm.com']
   spec.summary       = 'bitbar-plugin for concourse.ci'

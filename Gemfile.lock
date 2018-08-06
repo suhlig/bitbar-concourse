@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    bitbar-concourse (1.0)
+    bitbar-concourse (1.1)
 
 GEM
   remote: https://rubygems.org/
