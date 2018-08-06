@@ -30,12 +30,7 @@ latest_builds = pipelines.map do |pipeline|
       Bitbar::Concourse::BuildPresenter.new(build)
     end
   end
-end
-
-latest_builds.flatten!
-latest_builds.compact!
-latest_builds.sort_by!(&:end_time)
-latest_builds.reverse!
+end.flatten.compact.sort_by!(&:end_time).reverse
 
 puts Bitbar::Concourse::AggregatePresenter.new(latest_builds, target_name)
 puts '---'

@@ -8,9 +8,9 @@ This started out as fork of Checkman's [concourse.check](https://github.com/cppf
 
 * Install bitbar (`brew install bitbar`)
 * Install this gem
-* Add a script like the following to `~/.bitbar/` and make it executable:
+* Add the following script as `~/.bitbar/concourse.1m.sh` and make it executable:
 
-  ```
+  ```sh
   #!/bin/bash
 
   # Change this URL to point to your own Concourse instance
@@ -25,7 +25,15 @@ This started out as fork of Checkman's [concourse.check](https://github.com/cppf
   bitbar-concourse
   ```
 
-* Check the bitbar icon in the system tray for updated status
+  I do not install bitbar-concourse as system gem, but I use chruby. For some reason bitbar does not seem to run a login shell, so I had to load `chruby` manually in `~/.bitbar/concourse.1m.sh` (just before the last line):
+
+  ```sh
+  export PATH=/usr/local/bin:$PATH
+  source "$(brew --prefix)/share/chruby/chruby.sh"
+  chruby 2.5.1
+  ```
+
+* Check the bitbar icon in the system tray for an updated status of your pipeline:
 
   Example:
 
