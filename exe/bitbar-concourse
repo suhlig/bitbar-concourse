@@ -13,10 +13,10 @@ client = Concourse::Client.new(
 )
 
 target_name = ENV.fetch('CONCOURSE_TARGET', 'Concourse')
-ci = Concourse::Target.new(client)
+target = Concourse::Target.new(client)
 
 begin
-  pipelines = ci.pipelines
+  pipelines = target.pipelines
 rescue StandardError => e
   warn Bitbar::Concourse::ErrorPresenter.new(e, target_name)
   exit 1
@@ -26,11 +26,11 @@ pipelines = pipelines.select { |pipeline| ARGV.include?(pipeline.name) } if ARGV
 
 latest_builds = pipelines.map do |pipeline|
   pipeline.jobs.map do |job|
-    if build = job.finished_build
-      Bitbar::Concourse::BuildPresenter.new(build)
-    end
+    build = job.finished_build
+    next unless build
+    Bitbar::Concourse::BuildPresenter.new(build)
   end
-end.flatten.compact.sort_by!(&:end_time).reverse
+end.flatten.compact.sort_by(&:end_time).reverse
 
 puts Bitbar::Concourse::AggregatePresenter.new(latest_builds, target_name)
 puts '---'

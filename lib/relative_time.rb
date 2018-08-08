@@ -2,10 +2,13 @@
 
 module RelativeTime
   # derived from http://stackoverflow.com/a/195894
+  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable Metrics/CyclomaticComplexity
   def to_relative
-    a = (Time.now - self).to_i
+    a = ((Time.now - self).to_i if self)
 
     case a
+    when nil then 'not yet'
     when 0 then 'just now'
     when 1 then 'a second ago'
     when 2..59 then a.to_s + ' seconds ago'
@@ -19,4 +22,6 @@ module RelativeTime
     else ((a + 180_000) / (60 * 60 * 24 * 7)).to_i.to_s + ' weeks ago'
     end
   end
+  # rubocop:enable Metrics/AbcSize
+  # rubocop:enable Metrics/CyclomaticComplexity
 end

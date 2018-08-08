@@ -1,0 +1,11 @@
+{
+  "id":13826,
+  "team_name":"main",
+  "name":"2",
+  "status":"succeeded",
+  "job_name":"deploy-cf-in-bitsgo-azure-bosh-lite",
+  "api_url":"/api/v1/builds/13826",
+  "pipeline_name":"bits-service",
+  "start_time":1528754055,
+  "end_time":1528754341
+}

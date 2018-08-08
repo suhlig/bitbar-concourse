@@ -65,6 +65,8 @@ The propeller logo is in the [public domain](https://thenounproject.com/search/?
 
 # TODO
 
+* Allow limiting the number of builds shown
+* Show broken builds first, then a separator, then good ones
 * Use Excon in order to get easy tracing
 * Order latest builds in presenter first by status and then by last-run date so that the broken ones appear at the top
 * Use TerminalNotifier when a build is failing:

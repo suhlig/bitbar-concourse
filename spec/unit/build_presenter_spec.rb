@@ -5,7 +5,7 @@ require 'spec_helper'
 module Bitbar
   module Concourse
     describe BuildPresenter do
-      subject do
+      subject(:presented_build) do
         BuildPresenter.new(build)
       end
 
@@ -19,7 +19,7 @@ module Bitbar
 
         describe '#elapsed_time' do
           it 'returns seconds as is' do
-            expect(subject.elapsed_time).to eq('19 seconds')
+            expect(presented_build.elapsed_time).to eq('19 seconds')
           end
         end
       end
@@ -34,7 +34,7 @@ module Bitbar
 
         describe '#elapsed_time' do
           it 'returns seconds as is' do
-            expect(subject.elapsed_time).to eq('one minute')
+            expect(presented_build.elapsed_time).to eq('one minute')
           end
         end
       end
@@ -53,7 +53,29 @@ module Bitbar
         end
 
         it 'presents the relative end time' do
-          expect(subject.to_s).to include('19 seconds')
+          expect(presented_build.to_s).to include('19 seconds')
+        end
+      end
+
+      context 'next build has no start time' do
+        let(:job_info) { JSON.parse(File.read(Pathname(__dir__).parent / 'fixtures/builds/no_start_time.json')) }
+
+        let(:job) do
+          double(::Concourse::Job).tap do |job|
+            allow(job).to receive(:next_build) do
+              double(::Concourse::Build).tap do |build|
+                allow(build).to receive(:start_time).and_return(nil)
+                allow(build).to receive(:name).and_return('test')
+                allow(build).to receive(:url).and_return('http://ci.example.com')
+              end
+            end
+          end
+        end
+
+        let(:build) { ::Concourse::Build.new(job, job_info) }
+
+        it 'fails' do
+          expect(presented_build.to_s).to include('started not yet')
         end
       end
     end

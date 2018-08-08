@@ -105,7 +105,9 @@ module Concourse
 
     describe 'the next build has no start time yet' do
       before do
-        allow(client).to receive(:get).with('/bits-service/jobs/').and_return(File.read(fixtures / 'pipelines/bits-service/jobs/next_build_no_start_time.json'))
+        allow(client).to receive(:get).with('/bits-service/jobs/').and_return(
+          File.read(fixtures / 'pipelines/bits-service/jobs/next_build_no_start_time.json')
+        )
       end
 
       it 'has the expected number of jobs' do
