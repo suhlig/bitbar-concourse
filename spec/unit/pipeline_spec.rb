@@ -37,7 +37,7 @@ module Concourse
       expect(pipeline.name).to eq('bits-service')
     end
 
-    xit 'has a URL' do
+    xit 'has a fully qualified URL' do
       expect(pipeline.url.to_s).to eq('http://example.com/pipelines/bits-service')
     end
 
