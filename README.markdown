@@ -43,7 +43,9 @@ This started out as fork of Checkman's [concourse.check](https://github.com/cppf
 
 # Installation
 
-    $ gem install bitbar-concourse
+```sh
+$ gem install bitbar-concourse
+```
 
 # Development
 
@@ -65,13 +67,13 @@ The propeller logo is in the [public domain](https://thenounproject.com/search/?
 
 # TODO
 
+* Authentication works only for basic auth and the `main` team. We need a proper oauth flow similar to [what fly does](https://github.com/concourse/fly/blob/v4.0.1-rc.29/commands/login.go#L159).
 * Allow limiting the number of builds shown
-* Show broken builds first, then a separator, then good ones
 * Use Excon in order to get easy tracing
 * Order latest builds in presenter first by status and then by last-run date so that the broken ones appear at the top
 * Use TerminalNotifier when a build is failing:
 
-        TerminalNotifier.notify('Hello World', :open => 'http://twitter.com/alloy')
+  TerminalNotifier.notify('Hello World', :open => 'http://twitter.com/alloy')
 
-* Keep state about each job and notify only on a change (red => green etc.)
-* Ignore certain tasks, e.g. release lock
+  Also, keep state about each job and notify only on a change (red => green etc.)
+* Ignore certain jobs, e.g. releasing a lock
