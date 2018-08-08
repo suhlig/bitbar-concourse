@@ -10,8 +10,6 @@ module Concourse
   # A target has many pipelines
   #
   class Target
-    attr_reader :name
-
     def initialize(client, name = nil)
       @client = client
       @name = name
@@ -25,6 +23,10 @@ module Concourse
 
     def get(path = '')
       @client.get('pipelines' + path)
+    end
+
+    def name
+      @name || @client.base_uri
     end
 
     def to_s
