@@ -35,7 +35,7 @@ end.flatten.compact.sort_by(&:end_time).reverse
 puts Bitbar::Concourse::AggregatePresenter.new(latest_builds, target_name)
 puts '---'
 # http://mateoclarke.com/blog/2015/10/14/what-i-learned-boolean-ruby/
-latest_builds.group_by(&:'success?').sort_by{ |status, _| status ? 1 : 0}.each do |status, build|
+latest_builds.group_by(&:'success?').sort_by { |status, _| status ? 1 : 0 }.each do |_, build|
   puts build
   puts '---'
 end
