@@ -12,6 +12,7 @@ module Bitbar
 
       def initialize(build)
         raise 'Build must not be nil' if build.nil?
+
         @build = build
       end
 

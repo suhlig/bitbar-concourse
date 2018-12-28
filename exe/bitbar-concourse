@@ -28,6 +28,7 @@ latest_builds = pipelines.map do |pipeline|
   pipeline.jobs.map do |job|
     build = job.finished_build
     next unless build
+
     Bitbar::Concourse::BuildPresenter.new(build)
   end
 end.flatten.compact.sort_by(&:end_time).reverse
