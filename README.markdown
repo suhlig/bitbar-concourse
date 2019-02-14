@@ -68,7 +68,6 @@ The propeller logo is in the [public domain](https://thenounproject.com/search/?
 # TODO
 
 * Authentication works only for basic auth and the `main` team. We need a proper oauth flow similar to [what fly does](https://github.com/concourse/fly/blob/v4.0.1-rc.29/commands/login.go#L159).
-* Build URLs point to the JSON API, but should point to the UI (like [Concourse does](https://github.com/concourse/concourse/blob/968d1e0fa4f28d9966fcc8e2217474840bb6300a/web/elm/src/Build/Build.elm))
 * Use images from the Concourse server:
     https://ci.flintstone.cf.cloud.ibm.com/public/images/ic_pause_blue.svg
     https://ci.flintstone.cf.cloud.ibm.com/public/images/ic_pending_grey.svg

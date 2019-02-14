@@ -47,10 +47,19 @@ module Bitbar
             allow(b).to receive(:start_time).and_return(Time.at(23))
             allow(b).to receive(:end_time).and_return(Time.at(42))
             allow(b).to receive(:success?).and_return(true)
-            allow(b).to receive(:job_name).and_return('test_job')
-            allow(b).to receive(:name).and_return('test_build')
+            allow(b).to receive(:job_name).and_return('j2')
+            allow(b).to receive(:name).and_return('3')
             allow(b).to receive(:url).and_return('/api/foo')
             allow(b).to receive(:next).and_return(nil)
+            allow(b).to receive(:job) do
+              double(::Concourse::Job).tap do |job|
+                allow(job).to receive(:pipeline) do
+                  double(::Concourse::Pipeline).tap do |pipeline|
+                    allow(pipeline).to receive(:name).and_return('p1')
+                  end
+                end
+              end
+            end
           end
         end
 
@@ -59,7 +68,7 @@ module Bitbar
         end
 
         it 'presents a fully-qualified URL' do
-          expect(presented_build.to_s).to include('http://ci.example.com/api/foo')
+          expect(presented_build.to_s).to include('http://ci.example.com/teams/main/pipelines/p1/jobs/j2/builds/3')
         end
       end
 
@@ -68,11 +77,17 @@ module Bitbar
 
         let(:job) do
           double(::Concourse::Job).tap do |job|
+            allow(job).to receive(:name).and_return('j1')
             allow(job).to receive(:next_build) do
               double(::Concourse::Build).tap do |build|
                 allow(build).to receive(:start_time).and_return(nil)
-                allow(build).to receive(:name).and_return('test')
+                allow(build).to receive(:name).and_return('b1')
                 allow(build).to receive(:url).and_return('/foo/bar')
+              end
+            end
+            allow(job).to receive(:pipeline) do
+              double(::Concourse::Pipeline).tap do |pipeline|
+                allow(pipeline).to receive(:name).and_return('p1')
               end
             end
           end

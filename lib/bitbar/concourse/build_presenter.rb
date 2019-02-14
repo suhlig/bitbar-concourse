@@ -3,6 +3,7 @@
 require 'forwardable'
 require 'relative_time'
 require 'uri'
+require 'cgi'
 
 module Bitbar
   module Concourse
@@ -20,9 +21,10 @@ module Bitbar
 
       def to_s
         icon = @build.success? ? '✅' : '❌'
+        path = "/teams/main/pipelines/#{pipeline_name}/jobs/#{job_name}/builds/#{@build.name}"
 
         lines = [
-          "#{icon}  #{@build.job_name} - build ##{@build.name} | href=#{@url.merge(@build.url)}",
+          "#{icon}  #{job_name} - build ##{@build.name} | href=#{@url.merge(path)}",
           "finished #{relative_end_time}; took #{elapsed_time}"
         ]
 
@@ -51,6 +53,16 @@ module Bitbar
 
       def relative_end_time
         @build.end_time&.extend(RelativeTime)&.to_relative
+      end
+
+      private
+
+      def pipeline_name
+        CGI.escape(@build.job.pipeline.name)
+      end
+
+      def job_name
+        CGI.escape(@build.job_name)
       end
     end
   end
