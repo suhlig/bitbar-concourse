@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/suhlig/bitbar-concourse.svg?branch=master)](https://travis-ci.org/suhlig/bitbar-concourse)
 
-Presents the status of a [Concourse](https://concourse.ci/release-notes.html) pipeline in [bitbar](https://github.com/matryer/bitbar).
+Presents the status of a [Concourse](https://concourse-ci.org/) pipeline in [bitbar](https://github.com/matryer/bitbar).
 
 This started out as fork of Checkman's [concourse.check](https://github.com/cppforlife/checkman/blob/master/scripts/concourse.check), but has evolved since.
 
@@ -68,6 +68,14 @@ The propeller logo is in the [public domain](https://thenounproject.com/search/?
 # TODO
 
 * Authentication works only for basic auth and the `main` team. We need a proper oauth flow similar to [what fly does](https://github.com/concourse/fly/blob/v4.0.1-rc.29/commands/login.go#L159).
+* Build URLs point to the JSON API, but should point to the UI (like [Concourse does](https://github.com/concourse/concourse/blob/968d1e0fa4f28d9966fcc8e2217474840bb6300a/web/elm/src/Build/Build.elm))
+* Use images from the Concourse server:
+    https://ci.flintstone.cf.cloud.ibm.com/public/images/ic_pause_blue.svg
+    https://ci.flintstone.cf.cloud.ibm.com/public/images/ic_pending_grey.svg
+    https://ci.flintstone.cf.cloud.ibm.com/public/images/ic_failing_red.svg
+    https://ci.flintstone.cf.cloud.ibm.com/public/images/ic_aborted_brown.svg
+    https://ci.flintstone.cf.cloud.ibm.com/public/images/ic_running_green.svg
+    https://ci.flintstone.cf.cloud.ibm.com/public/images/ic_error_orange.svg
 * Allow limiting the number of builds shown
 * Use Excon in order to get easy tracing
 * Order latest builds in presenter first by status and then by last-run date so that the broken ones appear at the top
