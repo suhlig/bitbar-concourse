@@ -6,10 +6,10 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 Gem::Specification.new do |spec|
   spec.name          = 'bitbar-concourse'
-  spec.version       = '1.1'
+  spec.version       = '1.2'
   spec.authors       = ['Steffen Uhlig']
   spec.email         = ['Steffen.Uhlig@de.ibm.com']
-  spec.summary       = 'bitbar-plugin for concourse.ci'
+  spec.summary       = 'bitbar-plugin for Concourse'
 
   spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
   spec.bindir        = 'exe'
