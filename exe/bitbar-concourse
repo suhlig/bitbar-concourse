@@ -5,9 +5,12 @@ $LOAD_PATH.unshift File.expand_path('../lib', __dir__)
 
 require 'concourse'
 require 'bitbar'
+require 'uri'
+
+concourse_url = URI(ENV.fetch('CONCOURSE_URI'))
 
 client = Concourse::Client.new(
-  ENV.fetch('CONCOURSE_URI'),
+  concourse_url,
   username: ENV['CONCOURSE_USER'],
   password: ENV['CONCOURSE_PASSWORD']
 )
@@ -29,7 +32,7 @@ latest_builds = pipelines.map do |pipeline|
     build = job.finished_build
     next unless build
 
-    Bitbar::Concourse::BuildPresenter.new(build)
+    Bitbar::Concourse::BuildPresenter.new(build, concourse_url)
   end
 end.flatten.compact.sort_by(&:end_time).reverse
 

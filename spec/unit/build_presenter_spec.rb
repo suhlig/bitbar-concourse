@@ -6,8 +6,10 @@ module Bitbar
   module Concourse
     describe BuildPresenter do
       subject(:presented_build) do
-        BuildPresenter.new(build)
+        BuildPresenter.new(build, uri)
       end
+
+      let(:uri) { 'http://ci.example.com' }
 
       context 'when build time is below a minute' do
         let(:build) do
@@ -47,13 +49,17 @@ module Bitbar
             allow(b).to receive(:success?).and_return(true)
             allow(b).to receive(:job_name).and_return('test_job')
             allow(b).to receive(:name).and_return('test_build')
-            allow(b).to receive(:url).and_return('http://example.com/')
+            allow(b).to receive(:url).and_return('/api/foo')
             allow(b).to receive(:next).and_return(nil)
           end
         end
 
         it 'presents the relative end time' do
           expect(presented_build.to_s).to include('19 seconds')
+        end
+
+        it 'presents a fully-qualified URL' do
+          expect(presented_build.to_s).to include('http://ci.example.com/api/foo')
         end
       end
 
@@ -66,7 +72,7 @@ module Bitbar
               double(::Concourse::Build).tap do |build|
                 allow(build).to receive(:start_time).and_return(nil)
                 allow(build).to receive(:name).and_return('test')
-                allow(build).to receive(:url).and_return('http://ci.example.com')
+                allow(build).to receive(:url).and_return('/foo/bar')
               end
             end
           end

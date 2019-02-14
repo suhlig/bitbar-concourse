@@ -34,8 +34,8 @@ module Concourse
         expect(subject.status).to eq('succeeded')
       end
 
-      xit 'has a fully qualified URL' do
-        expect(subject.url).to eq('https://ci.example.com/api/v1/builds/480')
+      it 'has a fully qualified URL' do
+        expect(subject.url).to eq('/api/v1/builds/480')
       end
 
       it 'has a start time' do

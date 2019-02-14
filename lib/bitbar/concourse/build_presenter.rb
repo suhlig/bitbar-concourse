@@ -2,6 +2,7 @@
 
 require 'forwardable'
 require 'relative_time'
+require 'uri'
 
 module Bitbar
   module Concourse
@@ -10,17 +11,18 @@ module Bitbar
       def_delegator :@build, :end_time
       def_delegator :@build, :success?
 
-      def initialize(build)
+      def initialize(build, url)
         raise 'Build must not be nil' if build.nil?
 
         @build = build
+        @url = URI(url)
       end
 
       def to_s
         icon = @build.success? ? '✅' : '❌'
 
         lines = [
-          "#{icon}  #{@build.job_name} - build ##{@build.name} | href=#{@build.url}",
+          "#{icon}  #{@build.job_name} - build ##{@build.name} | href=#{@url.merge(@build.url)}",
           "finished #{relative_end_time}; took #{elapsed_time}"
         ]
 

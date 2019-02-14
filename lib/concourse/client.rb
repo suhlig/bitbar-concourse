@@ -10,12 +10,12 @@ module Concourse
 
     attr_reader :base_uri
 
-    def initialize(concourse_uri, username: nil, password: nil, options: {})
-      @concourse_uri = URI(concourse_uri)
+    def initialize(uri, username: nil, password: nil, options: {})
+      @uri = URI(uri)
       @username = username
       @password = password
       @options = options
-      @base_uri = @concourse_uri.merge(API_BASE_PATH)
+      @base_uri = @uri.merge(API_BASE_PATH)
     end
 
     def get(path)
@@ -53,7 +53,7 @@ module Concourse
 
     def authenticate
       io = open(
-        @concourse_uri.merge('/auth/basic/token?team_name=main'),
+        @uri.merge('/auth/basic/token?team_name=main'),
         options.merge(http_basic_authentication: [@username, @password])
       )
 
